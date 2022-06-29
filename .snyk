@@ -5,24 +5,37 @@ ignore:
   SNYK-JS-CSSWHAT-1298035:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > css-what:
         reason: no patch
-        expires: '2022-07-29T13:12:33.922Z'
+        expires: '2022-07-29T13:20:03.920Z'
+  SNYK-JS-EJS-2803307:
+    - react-scripts > workbox-webpack-plugin > workbox-build > @surma/rollup-plugin-off-main-thread > ejs:
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
   SNYK-JS-NTHCHECK-1586032:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > nth-check:
-        reason: 'no patch '
-        expires: '2022-07-29T13:12:00.438Z'
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
   SNYK-JS-MINIMIST-2429795:
     - react-scripts > tailwindcss > detective > minimist:
-        reason: no patch available
-        expires: '2022-07-29T13:12:00.438Z'
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > mkdirp > minimist:
         reason: reinstalled and still did not fix issue
         expires: '2022-05-05T15:13:53.416Z'
+      react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > minimist:
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > json5 > minimist:
         reason: reinstalled and still did not fix issue
         expires: '2022-05-05T15:13:53.416Z'
+      react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > mkdirp > minimist:
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > minimist:
         reason: reinstalled and still did not fix issue
         expires: '2022-05-05T15:13:53.416Z'
+      react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > json5 > minimist:
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > minimist:
         reason: no patch available
         expires: '2022-07-29T13:12:00.438Z'
@@ -35,12 +48,12 @@ ignore:
   SNYK-JS-ASYNC-2441827:
     - react-scripts > webpack-dev-server > portfinder > async:
         reason: no direct patch available
-        expires: '2022-05-11T18:40:46.414Z'
+        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > workbox-webpack-plugin > workbox-build > @surma/rollup-plugin-off-main-thread > ejs > jake > async:
         reason: no direct patch available
-        expires: '2022-05-11T18:40:46.415Z'
+        expires: '2022-07-29T13:20:03.920Z'
   SNYK-JS-NWSAPI-2841516:
     - react-scripts > jest > @jest/core > jest-config > jest-environment-jsdom > jsdom > nwsapi:
         reason: no patch
-        expires: '2022-07-29T13:12:00.438Z'
+        expires: '2022-07-29T13:20:03.920Z'
 patch: {}
