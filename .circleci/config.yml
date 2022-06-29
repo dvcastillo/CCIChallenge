@@ -10,8 +10,8 @@ orbs:
 jobs:
   lint_and_prettify:
     docker: 
-      - image: cimg/base:2021.11
-    resource_class: dvcastillo/containeragentdemo
+      - image: cimg/node:17.2.0
+    resource_class: medium
 
     steps:
       - checkout
