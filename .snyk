@@ -5,9 +5,13 @@ ignore:
   SNYK-JS-CSSWHAT-1298035:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > css-what:
         reason: No remediation available
-        expires: '2022-04-02T14:14:46.799Z'
+        expires: '2022-08-06T14:14:46.799Z'
   SNYK-JS-NTHCHECK-1586032:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > nth-check:
         reason: No remedation available
-        expires: '2022-04-02T14:14:46.799Z'
+        expires: '2022-08-06T14:14:46.799Z'
+  SNYK-JS-NWSAPI-2841516:
+    - react-scripts > jest > @jest/core > jest-config > jest-environment-jsdom > jsdom > nwsapi:
+        reason: No remedation available
+        expires: '2022-08-06T14:14:46.799Z'
 patch: {}
