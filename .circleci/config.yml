@@ -73,7 +73,7 @@ jobs:
     steps:
       - checkout
       - run: npm ci
-      - run: npm install snyk@latest -g
+      - run: sudo npm install snyk@latest -g
       - run: npm run build
       - run: snyk code test
 
