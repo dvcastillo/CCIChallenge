@@ -15,6 +15,9 @@ workflows:
       -  SAST:
           requires:
             - build
+      -  scanDependencies:
+          requires:
+            - build
       - node/test:
           version: 17.2.0
           requires:
@@ -23,7 +26,7 @@ workflows:
           type: approval
           requires:
             - node/test
-            - SAST
+            - scanDependencies
       - aws-ecr/build-and-push-image:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
@@ -54,7 +57,7 @@ jobs:
             - ~/usr/local/lib/node_modules
           key: npm-deps-{{ checksum "package-lock.json" }}
 
-  SAST: 
+  scanDependencies: 
     docker:
       - image: cimg/node:17.2.0
     steps:
@@ -62,6 +65,16 @@ jobs:
       - run: npm ci
       - run: npm run build
       - snyk/scan
+
+  SAST: 
+    docker:
+      - image: cimg/node:17.2.0
+    steps:
+      - checkout
+      - run: npm ci
+      - run: npm install snyk@latest -g
+      - run: npm run build
+      - run: snyk code test
 
   build:
     docker: 
