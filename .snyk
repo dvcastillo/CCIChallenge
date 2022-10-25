@@ -12,8 +12,8 @@ ignore:
         expires: '2022-07-29T13:20:03.920Z'
   SNYK-JS-NTHCHECK-1586032:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > nth-check:
-        reason: no patch
-        expires: '2022-07-29T13:20:03.920Z'
+        reason: 'no patch available '
+        expires: '2022-11-24T21:58:10.347Z'
   SNYK-JS-MINIMIST-2429795:
     - react-scripts > tailwindcss > detective > minimist:
         reason: no patch
@@ -21,21 +21,12 @@ ignore:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > mkdirp > minimist:
         reason: reinstalled and still did not fix issue
         expires: '2022-05-05T15:13:53.416Z'
-      react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > minimist:
-        reason: no patch
-        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > json5 > minimist:
         reason: reinstalled and still did not fix issue
         expires: '2022-05-05T15:13:53.416Z'
-      react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > mkdirp > minimist:
-        reason: no patch
-        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > minimist:
         reason: reinstalled and still did not fix issue
         expires: '2022-05-05T15:13:53.416Z'
-      react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > json5 > minimist:
-        reason: no patch
-        expires: '2022-07-29T13:20:03.920Z'
     - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > minimist:
         reason: no patch available
         expires: '2022-07-29T13:12:00.438Z'
@@ -45,6 +36,15 @@ ignore:
     - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > json5 > minimist:
         reason: no patch available
         expires: '2022-07-29T13:12:00.438Z'
+    - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > minimist:
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
+    - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > mkdirp > minimist:
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
+    - react-scripts > eslint-config-react-app > eslint-plugin-import > tsconfig-paths > json5 > minimist:
+        reason: no patch
+        expires: '2022-07-29T13:20:03.920Z'
   SNYK-JS-ASYNC-2441827:
     - react-scripts > webpack-dev-server > portfinder > async:
         reason: no direct patch available
