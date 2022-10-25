@@ -120,7 +120,7 @@ jobs:
           name: Verify Azure CLI was installed
       - azure-cli/login-with-user
       - run: 
-          command: az acr login --name $AZURE_ACR_SERVER
+          command: az acr login --allow-no-subscriptions --name $AZURE_ACR_SERVER
           name: "login to ACR registry"
       - run:
           command: docker tag dvcastillo37/cci-react-demo:multi-demo $AZURE_ACR_SERVER/cci-react-demo:multi-demo
