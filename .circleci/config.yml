@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@8.0.0
-  azure-cli: circleci/azure-cli@1.2.2
+  # azure-cli: circleci/azure-cli@1.2.2
   docker: circleci/docker@2.0.3
   gcp-cli: circleci/gcp-cli@2.4.0
   node: circleci/node@2.0.0
@@ -30,11 +30,11 @@ workflows:
       - build-and-push-image:
           requires:
             - hold
-      - deploy_image_to_acr:
-          context: 
-            - work_az
-          requires:
-            - build-and-push-image
+      # - deploy_image_to_acr:
+      #     context: 
+      #       - work_az
+      #     requires:
+      #       - build-and-push-image
       - deploy_image_to_gcp:
           context: 
             - work_gcp
@@ -109,28 +109,28 @@ jobs:
           image: dvcastillo37/cci-react-demo
           tag: multi-demo
 
-  deploy_image_to_acr:
-    executor: docker/machine
-    steps: 
-      - docker/pull:
-          images: "dvcastillo37/cci-react-demo:multi-demo"
-      - azure-cli/install
-      - run:
-          command: az -v
-          name: Verify Azure CLI was installed
-      # - azure-cli/login-with-user
-      - run: 
-          command: az login --allow-no-subscriptions
-          name: "login to ACR registry"
-      - run: 
-          command: az acr login --name $AZURE_ACR_SERVER
-          name: "login to ACR registry"
-      - run:
-          command: docker tag dvcastillo37/cci-react-demo:multi-demo $AZURE_ACR_SERVER/cci-react-demo:multi-demo
-          name: "Tag the recently pulled image to ACR server"
-      - run:
-          command: docker push $AZURE_ACR_SERVER/cci-react-demo:multi-demo
-          name: "Push image to ACR registry"
+  # deploy_image_to_acr:
+  #   executor: docker/machine
+  #   steps: 
+  #     - docker/pull:
+  #         images: "dvcastillo37/cci-react-demo:multi-demo"
+  #     - azure-cli/install
+  #     - run:
+  #         command: az -v
+  #         name: Verify Azure CLI was installed
+  #     - azure-cli/login-with-user
+  #     - run: 
+  #         command: az login --allow-no-subscriptions
+  #         name: "login to ACR registry"
+  #     - run: 
+  #         command: az acr login --name $AZURE_ACR_SERVER
+  #         name: "login to ACR registry"
+  #     - run:
+  #         command: docker tag dvcastillo37/cci-react-demo:multi-demo $AZURE_ACR_SERVER/cci-react-demo:multi-demo
+  #         name: "Tag the recently pulled image to ACR server"
+  #     - run:
+  #         command: docker push $AZURE_ACR_SERVER/cci-react-demo:multi-demo
+  #         name: "Push image to ACR registry"
 
   deploy_image_to_gcp:
     executor: docker/machine
