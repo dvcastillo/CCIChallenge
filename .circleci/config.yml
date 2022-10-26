@@ -118,7 +118,7 @@ jobs:
       - run:
           command: az -v
           name: Verify Azure CLI was installed
-      - azure-cli/login-with-user
+      # - azure-cli/login-with-user
       - run: 
           command: az login --allow-no-subscriptions
           name: "login to ACR registry"
