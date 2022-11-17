@@ -42,7 +42,7 @@ jobs:
       - run:
           name: does this work
           command: |
-            "$BASH_ENV"
+            cat "$BASH_ENV" | jq '. | map([.url])' | jq @sh
       - slack/notify:
           custom: |
             {
