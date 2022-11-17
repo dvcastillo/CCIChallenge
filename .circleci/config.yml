@@ -51,7 +51,7 @@ jobs:
                   "type": "section",
                   "fields": [
                     {
-                      "type": "plain_text",
+                      "type": "overflow",
                       "text": source "$BASH_ENV",
                       "emoji": true
                     }
