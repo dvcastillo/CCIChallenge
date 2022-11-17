@@ -1,10 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@8.0.0
-  # azure-cli: circleci/azure-cli@1.2.2
   docker: circleci/docker@2.0.3
-  gcp-cli: circleci/gcp-cli@2.4.0
   node: circleci/node@2.0.0
   snyk: snyk/snyk@1.1.2
 
@@ -22,34 +19,10 @@ workflows:
           version: 17.2.0
           requires:
             - build
-      - hold:
-          type: approval
+      - build-and-push-image:
           requires:
             - node/test
             - SAST
-      - build-and-push-image:
-          requires:
-            - hold
-      # - deploy_image_to_acr:
-      #     context: 
-      #       - work_az
-      #     requires:
-      #       - build-and-push-image
-      - deploy_image_to_gcp:
-          context: 
-            - work_gcp
-          requires:
-            - build-and-push-image
-      - aws-ecr/build-and-push-image:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          create-repo: true
-          region: '${AWS_DEFAULT_REGION}'
-          registry-id: AWS_ECR_REGISTRY_ID
-          repo: demo_ecr_repo
-          requires:
-            - build-and-push-image
-          tag: 'test'
 
 jobs:
   lint_and_prettify:
@@ -84,12 +57,20 @@ jobs:
       - image: cimg/node:17.2.0
     resource_class: medium
 
+    working_directory: /tmp
     steps:
       - checkout
       - restore_cache:
           keys:
             - npm-deps-{{ checksum "package-lock.json" }}
       - run: npm ci
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > /tmp/artifact-1;
+      - store_artifacts:
+          path: /tmp/artifact-1
+          destination: artifact-file
       - save_cache:
           paths:
             - ~/usr/local/lib/node_modules
@@ -108,46 +89,3 @@ jobs:
       - docker/push:
           image: dvcastillo37/cci-react-demo
           tag: multi-demo
-
-  # deploy_image_to_acr:
-  #   executor: docker/machine
-  #   steps: 
-  #     - docker/pull:
-  #         images: "dvcastillo37/cci-react-demo:multi-demo"
-  #     - azure-cli/install
-  #     - run:
-  #         command: az -v
-  #         name: Verify Azure CLI was installed
-  #     - azure-cli/login-with-user
-  #     - run: 
-  #         command: az login --allow-no-subscriptions
-  #         name: "login to ACR registry"
-  #     - run: 
-  #         command: az acr login --name $AZURE_ACR_SERVER
-  #         name: "login to ACR registry"
-  #     - run:
-  #         command: docker tag dvcastillo37/cci-react-demo:multi-demo $AZURE_ACR_SERVER/cci-react-demo:multi-demo
-  #         name: "Tag the recently pulled image to ACR server"
-  #     - run:
-  #         command: docker push $AZURE_ACR_SERVER/cci-react-demo:multi-demo
-  #         name: "Push image to ACR registry"
-
-  deploy_image_to_gcp:
-    executor: docker/machine
-    steps: 
-      - docker/pull:
-          images: "dvcastillo37/cci-react-demo:multi-demo"
-      - gcp-cli/install
-      - run:
-          command: gcloud version
-          name: Verify GCP CLI was installed
-      - gcp-cli/initialize
-      - run: 
-          command: gcloud auth configure-docker $GOOGLE_COMPUTE_REGION-docker.pkg.dev
-          name: "Authenticate into GCP registry"
-      - run:
-          command: docker tag dvcastillo37/cci-react-demo:multi-demo $GOOGLE_COMPUTE_REGION-docker.pkg.dev/$GOOGLE_PROJECT_ID/cci-react-demo/cci-react-demo:multi-demo
-          name: "Tag the recently pulled image to GCP Registry"
-      - run:
-          command: docker push $GOOGLE_COMPUTE_REGION-docker.pkg.dev/$GOOGLE_PROJECT_ID/cci-react-demo/cci-react-demo:multi-demo
-          name: "Push image to GCP registry"
