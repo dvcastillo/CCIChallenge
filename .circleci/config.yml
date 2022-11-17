@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@2.0.3
-  node: circleci/node@2.0.0
+  slack: circleci/slack@4.10.1
 
 workflows:
   build-slack:
@@ -24,4 +24,15 @@ jobs:
       - store_artifacts:
           path: /tmp/artifact-1
           destination: artifact-file
+    
+  push_to_slack:
+    docker: 
+      - image: cimg/node:17.2.0
+    resource_class: small
+
+    steps:
+      - run:
+          name: Push artifacts to slack
+          command: |
+            curl -H "Circle-Token: $SLACK_DEMO_TOKEN" https://circleci.com/api/v1.1/project/github/dvcastillo/CCI-React-Demo/latest/artifacts
 
