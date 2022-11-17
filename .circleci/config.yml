@@ -37,7 +37,7 @@ jobs:
       - run:
           name: Push artifacts to slack
           command: |
-            echo 'export SLACK='curl -H "Circle-Token: $SLACK_DEMO_TOKEN" https://circleci.com/api/v1.1/project/github/dvcastillo/CCI-React-Demo/latest/artifacts'' >> "$BASH_ENV"
+            echo 'curl -H "Circle-Token: $SLACK_DEMO_TOKEN" https://circleci.com/api/v1.1/project/github/dvcastillo/CCI-React-Demo/latest/artifacts' >> "$BASH_ENV"
       - run:
           name: does this work
           command: |
