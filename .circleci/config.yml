@@ -3,67 +3,20 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.0.3
   node: circleci/node@2.0.0
-  snyk: snyk/snyk@1.1.2
 
 workflows:
-  build-test-and-approval-deploy:
+  build-slack:
     jobs:
-      - lint_and_prettify
-      - build:
-          requires:
-            - lint_and_prettify
-      -  SAST:
-          requires:
-            - build
-      - node/test:
-          version: 17.2.0
-          requires:
-            - build
-      - build-and-push-image:
-          requires:
-            - node/test
-            - SAST
+      - build
 
 jobs:
-  lint_and_prettify:
-    docker: 
-      - image: cimg/node:17.2.0
-    resource_class: medium
-
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-deps-{{ checksum "package-lock.json" }}
-      - run: npm ci
-      - run: sudo npm i -g eslint prettier --unsafe-perm=true --allow-root
-      - run: eslint src/*.js && prettier --check "src/*.js"
-      - save_cache:
-          paths:
-            - ~/usr/local/lib/node_modules
-          key: npm-deps-{{ checksum "package-lock.json" }}
-
-  SAST: 
-    docker:
-      - image: cimg/node:17.2.0
-    steps:
-      - checkout
-      - run: npm ci
-      - run: npm run build
-      - snyk/scan
-
   build:
     docker: 
       - image: cimg/node:17.2.0
-    resource_class: medium
+    resource_class: small
 
     working_directory: /tmp
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-deps-{{ checksum "package-lock.json" }}
-      - run: npm ci
       - run:
           name: Creating Dummy Artifacts
           command: |
@@ -71,21 +24,4 @@ jobs:
       - store_artifacts:
           path: /tmp/artifact-1
           destination: artifact-file
-      - save_cache:
-          paths:
-            - ~/usr/local/lib/node_modules
-          key: npm-deps-{{ checksum "package-lock.json" }}
 
-  build-and-push-image:
-    executor: docker/machine
-    steps:
-      - checkout
-      - docker/check:
-          docker-username: DOCKERHUB_USERNAME
-          docker-password: DOCKERHUB_PASSWORD
-      - docker/build:
-          image: dvcastillo37/cci-react-demo
-          tag: multi-demo
-      - docker/push:
-          image: dvcastillo37/cci-react-demo
-          tag: multi-demo
