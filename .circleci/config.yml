@@ -51,7 +51,7 @@ jobs:
                   "type": "section",
                   "fields": [
                     {
-                      "type": "mrkdwn",
+                      "type": "plain_text",
                       "text": source "$BASH_ENV",
                       "emoji": true
                     }
