@@ -42,7 +42,7 @@ jobs:
       - run:
           name: does this work
           command: |
-            source "$BASH_ENV"
+            cat "$BASH_ENV"
       - slack/notify:
           custom: |
             {
@@ -52,7 +52,7 @@ jobs:
                   "fields": [
                     {
                       "type": "overflow",
-                      "text": source "$BASH_ENV",
+                      "text": cat "$BASH_ENV",
                       "emoji": true
                     }
                   ]
