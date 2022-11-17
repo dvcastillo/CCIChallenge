@@ -9,6 +9,7 @@ workflows:
     jobs:
       - build
       - push_to_slack:
+          context: slack
           requires:
             - build
 
@@ -42,3 +43,20 @@ jobs:
           name: does this work
           command: |
             source "$BASH_ENV"
+      - slack/notify:
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "*This is a text notification*",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
