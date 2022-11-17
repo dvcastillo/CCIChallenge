@@ -8,6 +8,9 @@ workflows:
   build-slack:
     jobs:
       - build
+      - push_to_slack:
+          requires:
+            - build
 
 jobs:
   build:
