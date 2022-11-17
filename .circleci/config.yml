@@ -42,7 +42,7 @@ jobs:
       - run:
           name: does this work
           command: |
-            cat "$BASH_ENV"
+            "$BASH_ENV"
       - slack/notify:
           custom: |
             {
