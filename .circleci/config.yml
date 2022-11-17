@@ -51,8 +51,8 @@ jobs:
                   "type": "section",
                   "fields": [
                     {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
+                      "type": "mrkdwn",
+                      "text": source "$BASH_ENV",
                       "emoji": true
                     }
                   ]
