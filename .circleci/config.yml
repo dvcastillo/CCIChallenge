@@ -25,7 +25,7 @@ workflows:
           type: approval
           requires:
             - node/test
-            - SAST
+            # - SAST
       - build-and-push-image:
           requires:
             - hold
