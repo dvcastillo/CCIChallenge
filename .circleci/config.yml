@@ -5,7 +5,7 @@ orbs:
   docker: circleci/docker@2.1.4
   gcp-cli: circleci/gcp-cli@2.4.1
   node: circleci/node@5.0.3
-  # snyk: snyk/snyk@1.4.0
+  snyk: snyk/snyk@1.4.0
 
 workflows:
   build-test-and-approval-deploy:
@@ -14,9 +14,9 @@ workflows:
       - build:
           requires:
             - lint_and_prettify
-      # -  SAST:
-      #     requires:
-      #       - build
+      -  SAST:
+          requires:
+            - build
       - node/test:
           version: 17.2.0
           requires:
@@ -25,15 +25,10 @@ workflows:
           type: approval
           requires:
             - node/test
-            # - SAST
+            - SAST
       - build-and-push-image:
           requires:
             - hold
-      # - deploy_image_to_acr:
-      #     context: 
-      #       - work_az
-      #     requires:
-      #       - build-and-push-image
       - deploy_image_to_gcp:
           context: 
             - work_gcp
@@ -69,14 +64,14 @@ jobs:
             - ~/usr/local/lib/node_modules
           key: npm-deps-{{ checksum "package-lock.json" }}
 
-  # SAST: 
-  #   docker:
-  #     - image: cimg/node:17.2.0
-  #   steps:
-  #     - checkout
-  #     - run: npm ci
-  #     - run: npm run build
-  #     - snyk/scan
+  SAST: 
+    docker:
+      - image: cimg/node:17.2.0
+    steps:
+      - checkout
+      - run: npm ci
+      - run: npm run build
+      - snyk/scan
 
   build:
     docker: 
