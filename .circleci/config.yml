@@ -5,7 +5,7 @@ orbs:
   docker: circleci/docker@2.1.4
   gcp-cli: circleci/gcp-cli@2.4.1
   node: circleci/node@5.0.3
-  # snyk: snyk/snyk@1.4.0
+  snyk: snyk/snyk@1.4.0
 
 workflows:
   build-test-and-approval-deploy:
