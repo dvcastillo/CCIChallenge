@@ -6,6 +6,43 @@ ignore:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > css-what:
         reason: no patch
         expires: '2022-07-29T13:20:03.920Z'
+  SNYK-JS-DEBUG-3227433:
+    - express > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - express > body-parser > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - express > finalhandler > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - express > send > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > eslint-config-react-app > eslint-plugin-import > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > webpack-dev-server > express > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > react-dev-utils > detect-port-alt > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > webpack-dev-server > compression > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > webpack-dev-server > serve-index > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > webpack-dev-server > express > body-parser > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > webpack-dev-server > express > finalhandler > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
+    - react-scripts > webpack-dev-server > express > send > debug:
+        reason: no patch
+        expires: '2023-07-29T13:20:03.920Z'
   SNYK-JS-EJS-2803307:
     - react-scripts > workbox-webpack-plugin > workbox-build > @surma/rollup-plugin-off-main-thread > ejs:
         reason: no patch
@@ -13,7 +50,7 @@ ignore:
   SNYK-JS-NTHCHECK-1586032:
     - react-scripts > @svgr/webpack > @svgr/plugin-svgo > svgo > css-select > nth-check:
         reason: no patch available
-        expires: '2022-12-28T18:37:31.496Z'
+        expires: '2023-12-28T18:37:31.496Z'
   SNYK-JS-MINIMIST-2429795:
     - react-scripts > tailwindcss > detective > minimist:
         reason: no patch
