@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  # aws-ecr: circleci/aws-ecr@8.2.1
+  aws-ecr: circleci/aws-ecr@8.2.1
   docker: circleci/docker@2.2.0
   gcp-cli: circleci/gcp-cli@2.4.1
   node: circleci/node@5.0.3
