@@ -18,11 +18,6 @@ workflows:
           version: 17.2.0
           requires:
             - build
-      - hold:
-          type: approval
-          requires:
-            - node/test
-            - SAST
 
 jobs:
   lint_and_prettify:
