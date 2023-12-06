@@ -24,9 +24,6 @@ workflows:
           requires:
             - node/test
             - SAST
-      - heroku/deploy-via-git:
-          requires:
-            - hold
 
 jobs:
   lint_and_prettify:
