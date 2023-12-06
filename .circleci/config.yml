@@ -1,10 +1,8 @@
 version: 2.1
 
 orbs:
-  heroku: circleci/heroku@1.2.6
   node: circleci/node@2.0.0
   snyk: snyk/snyk@1.1.2
-  # aws-elastic-beanstalk: circleci/aws-elastic-beanstalk@2.0.1
 
 workflows:
   build-test-and-approval-deploy:
@@ -20,21 +18,6 @@ workflows:
           version: 17.2.0
           requires:
             - build
-      - hold:
-          type: approval
-          requires:
-            - node/test
-            - SAST
-      - heroku/deploy-via-git:
-          requires:
-            - hold
-      # - deploy:
-      #     requires:
-      #       - hold
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
 
 jobs:
   lint_and_prettify:
@@ -79,22 +62,3 @@ jobs:
           paths:
             - ~/usr/local/lib/node_modules
           key: npm-deps-{{ checksum "package-lock.json" }}
-
-  # If deploying to AWS: create new Beanstalk environment & update below and .elasticbeanstalk/config.yml
-  # deploy:
-  #   working_directory: ~/src
-  #   docker:
-  #     - image: cimg/node:17.2.0
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Installing deployment dependencies
-  #         working_directory: /
-  #         command: |
-  #           sudo apt-get -y -qq update
-  #           sudo apt-get install python3-pip python3-dev build-essential
-  #           sudo pip3 install awsebcli
-
-  #     - run:
-  #         name: Deploying
-  #         command: eb deploy $AWS_EBS_ENV
