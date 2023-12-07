@@ -50,6 +50,7 @@ jobs:
       - checkout
       - run: npm ci
       - run: npm run build
+      - run: echo "SNYK TOKEN ${SNYK_TOKEN}"
       - snyk/scan
 
   build:
