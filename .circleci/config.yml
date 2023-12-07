@@ -35,7 +35,7 @@ jobs:
       - image: cimg/node:17.2.0
     resource_class: medium
     environment:
-      WEBHOOK_BODY: << pipeline.trigger_parameters.circleci.event_type >>
+      WEBHOOK_BODY: << pipeline.trigger_source >> SPACE << pipeline.git.branch >>
     steps:
       - run: echo "Hello :)"
       - run: echo "${WEBHOOK_BODY}"
