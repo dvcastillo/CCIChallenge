@@ -18,6 +18,11 @@ workflows:
           version: 17.2.0
           requires:
             - build
+      - hold:
+          type: approval
+          requires:
+            - node/test
+            - SAST
 
 jobs:
   lint_and_prettify:
@@ -62,3 +67,4 @@ jobs:
           paths:
             - ~/usr/local/lib/node_modules
           key: npm-deps-{{ checksum "package-lock.json" }}
+
