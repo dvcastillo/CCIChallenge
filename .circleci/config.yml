@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  heroku: circleci/heroku@1.2.6
   node: circleci/node@2.0.0
   snyk: snyk/snyk@1.1.2
 
@@ -24,9 +23,6 @@ workflows:
           requires:
             - node/test
             - SAST
-      - heroku/deploy-via-git:
-          requires:
-            - hold
 
 jobs:
   lint_and_prettify:
