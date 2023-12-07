@@ -1,73 +1,23 @@
-  version: 2.1
+version: 2.1
 
-  orbs:
-    heroku: circleci/heroku@1.2.6
-    node: circleci/node@2.0.0
-    snyk: snyk/snyk@1.1.2
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2023.03
+    steps:
+      - checkout
+      - run: echo "this is the build job"
+  test:
+    docker:
+      - image: cimg/base:2023.03
+    steps:
+      - checkout
+      - run: echo "this is the test job"
 
-  workflows:
-    build-test-and-approval-deploy:
-      jobs:
-        - lint_and_prettify
-        - build:
-            requires:
-              - lint_and_prettify
-        -  SAST:
-            requires:
-              - build
-        - node/test:
-            version: 17.2.0
-            requires:
-              - build
-        - hold:
-            type: approval
-            requires:
-              - node/test
-              - SAST
-        - heroku/deploy-via-git:
-            requires:
-              - hold
-
-  jobs:
-    lint_and_prettify:
-      docker: 
-        - image: cimg/node:17.2.0
-      resource_class: medium
-
-      steps:
-        - checkout
-        - restore_cache:
-            keys:
-              - npm-deps-{{ checksum "package-lock.json" }}
-        - run: npm ci
-        - run: sudo npm i -g eslint prettier --unsafe-perm=true --allow-root
-        - run: eslint src/*.js && prettier --check "src/*.js"
-        - save_cache:
-            paths:
-              - ~/usr/local/lib/node_modules
-            key: npm-deps-{{ checksum "package-lock.json" }}
-
-    SAST: 
-      docker:
-        - image: cimg/node:17.2.0
-      steps:
-        - checkout
-        - run: npm ci
-        - run: npm run build
-        - snyk/scan
-
-    build:
-      docker: 
-        - image: cimg/node:17.2.0
-      resource_class: medium
-
-      steps:
-        - checkout
-        - run: npm ci
-        - restore_cache:
-            keys:
-              - npm-deps-{{ checksum "package-lock.json" }}
-        - save_cache:
-            paths:
-              - ~/usr/local/lib/node_modules
-            key: npm-deps-{{ checksum "package-lock.json" }}
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test
