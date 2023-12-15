@@ -12,7 +12,8 @@
         - restore_cache:
             keys:
               - npm-deps-{{ checksum "package-lock.json" }}
-        - run: echo "$(cat $BASH_ENV)"
+        - run: echo "${CIRCLECI_PR_REPONAME}"
+        - run: echo "${CIRCLE_PR_USERNAME}"
         - run: npm ci
         - run: sudo npm i -g eslint prettier --unsafe-perm=true --allow-root
         - run: eslint src/*.js && prettier --check "src/*.js"
