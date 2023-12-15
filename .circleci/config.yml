@@ -12,6 +12,7 @@
         - restore_cache:
             keys:
               - npm-deps-{{ checksum "package-lock.json" }}
+        - run: echo "$(cat $BASH_ENV)"
         - run: npm ci
         - run: sudo npm i -g eslint prettier --unsafe-perm=true --allow-root
         - run: eslint src/*.js && prettier --check "src/*.js"
@@ -24,7 +25,6 @@
         - image: cimg/node:17.2.0
       steps:
         - checkout
-        - run: npm ci
         - run: npm run build
         - snyk/scan
     build:
